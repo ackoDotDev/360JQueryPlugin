@@ -1,0 +1,112 @@
+.threesixty-image-rotate {
+    background: #FFFFFF;
+}
+
+.threesixty-image-rotate .loading-spinner {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    background: #FFFFFF;
+    opacity: 0.5;
+}
+
+.threesixty-image-rotate .loading-spinner:after {
+    display: block;
+    background-image: url("images/icons/loading.gif");
+    background-size: contain;
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100001;
+}
+
+.threesixty-image-rotate .images-display:hover {
+    cursor: grab;
+}
+
+.threesixty-image-rotate .images-display .images-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.threesixty-image-rotate .images-display .images-list .images-display {
+    display: none;
+}
+
+.threesixty-image-rotate .images-display .images-list .images-display img {
+    width: 100%;
+    height: auto;
+}
+
+.active {
+    display: block !important;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar {
+    width: 130px;
+    margin: auto;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar div {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 1px;
+    background-size: contain;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar div:hover {
+    cursor: pointer;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar .navigation-bar-next {
+    background-image: url("images/icons/next.png");
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar .navigation-bar-previous {
+    background-image: url("images/icons/previous.png");
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar .navigation-bar-play {
+    background-image: url("images/icons/play.png");
+}
+
+.navigation-bar-stop {
+    background-image: url("images/icons/stop.png") !important;
+}
+
+.threesixty-image-rotate .navigation-bar-wrapper .navigation-bar .navigation-bar-resize {
+    background-image: url("images/icons/large-size.png");
+}
+
+.navigation-bar-resize-small-icon {
+    background-image: url("images/icons/small-size.png") !important;
+}
+
+@media screen and (max-width: 991px) {
+    .active {
+        display: block !important;
+    }
+
+    .threesixty-image-rotate .navigation-bar-wrapper .navigation-bar {
+        width: 100px;
+        margin: auto;
+    }
+
+    .threesixty-image-rotate .navigation-bar-wrapper .navigation-bar .navigation-bar-resize {
+        display: none;
+    }
+}
+
