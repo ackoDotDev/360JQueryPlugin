@@ -1,18 +1,19 @@
 (function ($) {
     $.fn.TreeSixtyImageRotate = function (options) {
-        var base = this;
+        let base = this;
 
-        var settings = $.extend({
+        let settings = $.extend({
             // These are the defaults.
             totalFrames: 36,                                // Total number of image you have
             endFrame: 36,                                   // end frame for the auto spin animation
             currentFrame: 0,                                // This the start frame for auto spin
-            speed: 50,
+            speed: 50,                                      // speed of auto rotate option
+            dragSpeed: 6,                                   // speed of rotation when dragging elements
             progress: ".spinner",                           // selector to show the loading progress
             extension: ".jpg",                              // extension for the images
             imgPrefix: "",
             navigation: true,                               // display navigation
-            spinner: true,                                 // disable spinner for loading
+            spinner: true,                                  // disable spinner for loading
             imagesFolder: "images/",                        // path to folder with images
             smallWidth: 400,                                // smaller width for images
             smallHeight: 400,                               // smaller height for images
@@ -40,7 +41,7 @@
             if (settings.navigation) {
                 base.createNavigation();
             }
-            var changeSlide = false, previousSlide = false, nextNext = false, xAxis, nextXAxis;
+            let changeSlide = false, previousSlide = false, nextNext = false, xAxis, nextXAxis;
             base.find(".images-list").on("mousedown touchstart", function (e) {
                 e.preventDefault();
                 if (e.type === "mousedown") {
@@ -56,11 +57,11 @@
                     } else {
                         nextXAxis = e.originalEvent.touches[0].pageX;
                     }
-                    if (nextXAxis > xAxis) {
+                    if (nextXAxis > xAxis + settings.dragSpeed) {
                         previousSlide = true;
                         xAxis = nextXAxis;
                         base.previous();
-                    } else {
+                    } else if (nextXAxis < xAxis - settings.dragSpeed) {
                         nextNext = true;
                         xAxis = nextXAxis;
                         base.next();
@@ -78,7 +79,7 @@
          * Loads images from provided directory
          */
         base.loadImages = function () {
-            var imagesDisplay, imagesList, imageContainer, image;
+            let imagesDisplay, imagesList, imageContainer, image;
 
             imagesDisplay = $("<div/>").attr({
                 "class": "images-display"
@@ -88,7 +89,7 @@
                 "class": "images-list"
             });
 
-            for (var i = 0; i < settings.totalFrames + 1; i++) {
+            for (let i = 0; i < settings.totalFrames + 1; i++) {
                 imageContainer = $("<li/>").attr({
                     "class": "images-display image-" + i + ((i === 0) ? " active" : "")
                 });
@@ -108,7 +109,7 @@
          * Creates navigation menu for TreeSixtyImageRotate display
          */
         base.createNavigation = function () {
-            var navigationBarWrapper, navigationBar, next, previous, playStop, resize;
+            let navigationBarWrapper, navigationBar, next, previous, playStop, resize;
 
             navigationBarWrapper = $("<div/>").attr("class", "navigation-bar-wrapper");
 
@@ -139,7 +140,7 @@
 
             base.append(navigationBarWrapper);
 
-            var nextInterval;
+            let nextInterval;
             next.on("mousedown touchstart", function (e) {
                 e.preventDefault();
                 nextInterval = setInterval(function () {
@@ -148,7 +149,8 @@
             }).on("mouseleave mouseup touchend", function () {
                 clearInterval(nextInterval);
             });
-            var previousInterval;
+
+            let previousInterval;
             previous.on("mousedown touchstart", function (e) {
                 e.preventDefault();
                 previousInterval = setInterval(function () {
@@ -157,7 +159,8 @@
             }).on("mouseleave mouseup touchend", function () {
                 clearInterval(previousInterval);
             });
-            var play = false, playStopInterval;
+
+            let play = false, playStopInterval;
             playStop.on("mousedown touchstart", function (e) {
                 e.preventDefault();
                 if (!play) {
@@ -185,20 +188,19 @@
          * Also can hide loader depending on status
          */
         base.spinner = function (status) {
-            var spinner;
+            let spinner;
             spinner = $("<div/>").attr({
                 "class": "loading-spinner"
             });
             base.append(spinner);
             if (status === "start") {
-                var winWidth = $(window).width();
+                let winWidth = $(window).width();
                 if (winWidth > 991) {
                     base.find('.loading-spinner').css({
                         "height": settings.smallHeight,
                         "width": settings.smallWidth,
                     })
-                }
-                else {
+                } else {
                     base.find('.loading-spinner').css({
                         "max-height": settings.largeHeight,
                         "max-width": settings.largeWidth,
@@ -219,14 +221,14 @@
          * Hide current image and next image
          */
         base.next = function () {
-            var currentSlide = base.find(".active");
-            var imgPositionClass = currentSlide.attr("class").split(/\s+/)[1];
-            var imgPossition = parseInt(imgPositionClass.substring(6));
+            let currentSlide = base.find(".active");
+            let imgPositionClass = currentSlide.attr("class").split(/\s+/)[1];
+            let imgPossition = parseInt(imgPositionClass.substring(6));
             imgPossition--;
             if (imgPossition < 0) {
                 imgPossition = settings.totalFrames;
             }
-            var nextImgClass = "image-" + imgPossition;
+            let nextImgClass = "image-" + imgPossition;
             base.find("." + nextImgClass).addClass("active");
             currentSlide.removeClass("active");
 
@@ -236,14 +238,14 @@
          * Hide current image and previous image
          */
         base.previous = function () {
-            var currentSlide = base.find(".active");
-            var imgPositionClass = currentSlide.attr("class").split(/\s+/)[1];
-            var imgPossition = parseInt(imgPositionClass.substring(6));
+            let currentSlide = base.find(".active");
+            let imgPositionClass = currentSlide.attr("class").split(/\s+/)[1];
+            let imgPossition = parseInt(imgPositionClass.substring(6));
             imgPossition++;
             if (imgPossition > settings.totalFrames) {
                 imgPossition = 0;
             }
-            var nextImgClass = "image-" + imgPossition;
+            let nextImgClass = "image-" + imgPossition;
             base.find("." + nextImgClass).addClass("active");
             currentSlide.removeClass("active");
         };
@@ -303,14 +305,13 @@
             base.resize();
         });
         $(window).resize(function (e) {
-            var winWidth = $(window).width();
+            let winWidth = $(window).width();
             if (winWidth > 991) {
                 base.css({
                     "height": settings.smallHeight,
                     "width": settings.smallWidth,
                 })
-            }
-            else {
+            } else {
                 base.css({
                     "max-height": settings.largeHeight,
                     "max-width": settings.largeWidth,
@@ -320,14 +321,13 @@
             }
         });
         $(document).ready(function (e) {
-            var winWidth = $(window).width();
+            let winWidth = $(window).width();
             if (winWidth > 991) {
                 base.css({
                     "height": settings.smallHeight,
                     "width": settings.smallWidth,
                 })
-            }
-            else {
+            } else {
                 base.css({
                     "max-height": settings.largeHeight,
                     "max-width": settings.largeWidth,
